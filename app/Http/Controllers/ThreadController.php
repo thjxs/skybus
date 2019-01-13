@@ -10,7 +10,7 @@ class ThreadController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth:api']);
+        $this->middleware(['auth:api'])->except(['index', 'show']);
     }
 
     /**
@@ -20,12 +20,21 @@ class ThreadController extends Controller
      */
     public function index(Request $request)
     {
-        $threads = Thread::published()->orderByDesc('pinned_at')
+
+        $threads = Thread::published()
+            ->withOrder($request->order ?? "node_id", $request->ascending == 'true' ? 'asc' : 'desc')
+            ->orderByDesc('pinned_at')
             ->orderByDesc('excellent_at')
             ->orderByDesc('published_at')
             // ->filter($request->all())
             ->paginate($request->get('per_page', 20));
 
+        if ($request->order) {
+            $threads->appends(['order' => $request->order]);
+        }
+        if ($request->ascending) {
+            $threads->appends(['ascending' => $request->ascending]);
+        }
         return ThreadResource::collection($threads);
     }
 

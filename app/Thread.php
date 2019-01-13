@@ -11,8 +11,7 @@ class Thread extends Model
     use SoftDeletes, Followable;
 
     protected $fillable = [
-        'title', 'user_id', 'node_id', 'excellent_at', 'pinned_at',
-        'frozen_at', 'banned_at', 'published_at', 'cache', 'cache->views_count',
+        'title', 'user_id', 'node_id', 'published_at', 'cache', 'cache->views_count',
     ];
 
     protected $dates = [
@@ -44,22 +43,6 @@ class Thread extends Model
     protected static function boot()
     {
         parent::boot();
-
-        static::creating(function ($thread) {
-            $thread->user_id = auth()->user()->id;
-            // static::throttleCheck($thread->user);
-        });
-
-        $saveContent = function ($thread) {
-            if (request()->has('body')) {
-                $data = ['body' => request()->get('body')];
-                $thread->content()->updateOrCreate(['contentable_id' => $thread->id], $data);
-                $thread->loadMissing('content');
-            }
-        };
-
-        static::updated($saveContent);
-        static::created($saveContent);
 
         static::saving(function ($thread) {
             if (request()->get('is_draft')) {
@@ -102,6 +85,11 @@ class Thread extends Model
             ->whereHas('user', function ($q) {
                 $q->whereNull('banned_at');
             });
+    }
+
+    public function scopeWithOrder($query, $order, $sort)
+    {
+        return $query->orderBy($order, $sort);
     }
 
     public function getHasPinnedAttribute()
