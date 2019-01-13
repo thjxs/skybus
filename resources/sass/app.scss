@@ -6,9 +6,120 @@
 @import 'variables';
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+//@import '~bootstrap/scss/bootstrap';
+a {
+    text-decoration: none;
+}
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out;
+}
+.list-unstyled {
+    list-style-type: none;
+    padding-left: 0;
+}
+.btn:not(:disabled):not(.disabled) {
+    cursor: pointer;
+}
+#nav {
+    box-shadow: 0 2px 4px -1px rgba(0,0,0,.25)
+}
+.navbar {
+    width: 960px;
+    margin: 0 auto;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -moz-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    -o-flex-wrap: wrap;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: .5rem 1rem;
+    position: relative;
+}
+.navbar-brand {
+    font-size: 1.5rem;
+    color: rgba(0,0,0,.9);
+}
+.form-search {
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    flex-flow: row wrap;
+    -ms-align-items: center;
+    align-items: center;
 
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    input {
+        height: 2.25rem;
+        width: auto;
+        padding: .375rem .75rem;
+        line-height: 1.5;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+    }
+
+    button {
+        color: #28a745;
+    }
+}
+
+.form-signup, .form-signin {
+    width: 100%;
+    max-width: 420px;
+    padding: 15px;
+    margin: auto;
+
+    .form-label-group {
+        position: relative;
+        margin-bottom: 1rem;
+
+        input, label {
+            height: 3.125rem;
+            padding: .75rem;
+        }
+
+        label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: block;
+            width: 100%;
+            margin-bottom: 0;
+            line-height: 1.5;
+            color: #495057;
+            pointer-events: none;
+            cursor: text;
+            border: 1px solid transparent;
+            border-radius: .25rem;
+            transition: all .1s ease-in-out;
+        }
+
+        input::placeholder {
+            color: transparent;
+        }
+
+        input:not(:placeholder-shown) {
+            padding-top: 1.25rem;
+            padding-bottom: .25rem;
+        }
+
+        input:not(:placeholder-shown) ~ label {
+            padding-top: .25rem;
+            padding-bottom: .25rem;
+            font-size: 12px;
+            color: #777;
+        }
+    }
 }
