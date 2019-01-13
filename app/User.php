@@ -11,6 +11,7 @@ use App\Traits\MustVerifyEmail;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Support\Facades\Redis;
 use App\Notifications\CommentMyThread;
+use App\Thread;
 
 class User extends Authenticatable
 {
@@ -92,5 +93,10 @@ class User extends Authenticatable
     public function sendCommentMyThreadNotification($comment)
     {
         $this->notify(new CommentMyThread($comment));
+    }
+
+    public function threads()
+    {
+        return $this->hasMany(Thread::class);
     }
 }
