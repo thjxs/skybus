@@ -17,6 +17,7 @@ Route::middleware('auth:api', 'throttle:3,1')->get('/user', function (Request $r
     return $request->user();
 });
 
+Route::post('login', 'Auth\\LoginController@login');
 Route::post('register', 'Auth\\RegisterController@register');
 Route::get('verify', 'Auth\\VerificationController@verify')->name('verification.verify');
 Route::get('resend', 'Auth\\VerificationController@resend')->name('verification.resend');

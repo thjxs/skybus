@@ -12,5 +12,7 @@
 */
 
 Route::get('/{view?}', function () {
-    return view('welcome')
+    return view('welcome');
 })->where('view', '(.*)');
+
+Auth::routes();
