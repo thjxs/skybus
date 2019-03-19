@@ -10,3 +10,7 @@ $factory->define(App\Thread::class, function (Faker $faker) {
         'node_id' => $faker->randomElement($node_ids)
     ];
 });
+
+$factory->afterCreating(App\Thread::class, function ($thread, $faker) {
+    $thread->content()->save(['body' => $faker->realText(100, 200)]);
+});
